@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment -->
+<!--  -->
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+	<!-- Nome con cui compare l'estensione nel menù, fa casino con gli underscore _ -->
+	<name>1. 產生雷射機用的PNG圖檔</name>
+	<!-- il campo ID deve essere univoco  -->
+	<id>com.305engineering1.png4laser_gcode</id>
+	
+	<!-- Dipendenze, basta solo lo script python principale -->
+	<dependency type="executable" location="extensions">png4laser_gcode.py</dependency>
+	<dependency type="executable" location="extensions">inkex.py</dependency>
+	    	
+	<!-- Parametri di input per lo script python che vengono visualizzati nel widget creato da inkscape-->
+	<!-- vengono generati in ordine di come vengono scritti  -->
+
+	<param name='active-tab' type="notebook">
+
+		<page name="General" _gui-text="General">
+
+		<!-- Titolo e descrizione -->
+			<param name="Title" type="description">Raster 2 Laser GCode generator for cr8 20190530</param>
+			<param name="Description" type="description">revision by 楊梓洋</param>
+    
+		<!-- Opzioni di esportazione dell'immagine -->
+			<param name="directory" type="string"  gui-text="匯出路徑 Export directory"></param>
+			<param name="filename" type="string"  gui-text="匯出檔案名稱 File Name">test</param>
+			<param name="add-numeric-suffix-to-filename" type="boolean" gui-text="浮雕檔案">true</param>
+		
+			<param name="bg_color" type="enum" gui-text="透明區域視為 Replace transparency with">
+				<_item value="#ffffff">White</_item>
+				<_item value="#000000">Black</_item>
+			</param>
+
+		</page>
+	</param>
+
+	<!-- Per togliere la casella Antepima diretta bisogna sostituire <effect> con <effect needs-live-preview="false">  -->
+	<!-- <effect> -->
+	<!-- 	<effect needs-live-preview="false"> -->
+	<effect needs-live-preview="false"> 
+        	<object-type>all</object-type>
+		<!-- Dove comparirà lo script all'interno del menù estensioni -->
+		<!--  " Estensioni => 雷射g-code => prova_estensione " -->
+        	<effects-menu>
+			<submenu name="雷射機雕刻"/>
+        	</effects-menu>
+	</effect>
+    
+	<!-- Script python da eseguire -->
+	<script>
+    		<command reldir="extensions" interpreter="python">png4laser_gcode.py</command>
+	</script>
+</inkscape-extension>
+
+

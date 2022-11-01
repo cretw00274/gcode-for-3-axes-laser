@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment -->
+<!--  -->
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+	<!-- Nome con cui compare l'estensione nel menù, fa casino con gli underscore _ -->
+	<name>2. PNG圖檔產生雷射雕刻路徑</name>
+	<!-- il campo ID deve essere univoco  -->
+	<id>com.305engineering1.png2laser_gcode</id>
+	
+	<!-- Dipendenze, basta solo lo script python principale -->
+	<dependency type="executable" location="extensions">raster2laser_gcode_cr8.py</dependency>
+	<dependency type="executable" location="extensions">inkex.py</dependency>
+	    	
+	<!-- Parametri di input per lo script python che vengono visualizzati nel widget creato da inkscape-->
+	<!-- vengono generati in ordine di come vengono scritti  -->
+
+	<param name='active-tab' type="notebook">
+
+		<page name="General" _gui-text="General">
+
+		<!-- Titolo e descrizione -->
+			<param name="Title" type="description">Raster 2 Laser GCode generator for cr8 20190531</param>
+			<param name="Description" type="description">revision by 楊梓洋</param>
+    
+		<!-- Opzioni di esportazione dell'immagine -->
+			<param name="directory" type="string"  gui-text="圖檔路徑:"></param>
+			<param name="s_file" type="string"  gui-text="加工圖檔名稱:">test_s.png</param>
+			<param name="z_file" type="string"  gui-text="浮雕檔案名稱:">test_z.png</param>
+			<param name="z_axis" type="float" min="0" max="20" gui-text="浮雕深度 (0 ~ 20 mm):">0.0</param>
+			<param name="g_file" type="string"  gui-text="雷雕路徑存檔名稱:">test.nc</param>
+
+	<!-- Modalità di conversione in Bianco e Nero -->
+			<param name="conversion_type" type="enum" gui-text="黑/白轉換演算法 B/W conversion algorithm ">
+				<_item value="6">Grayscale</_item>
+				<_item value="1">B/W fixed threshold</_item>
+				<_item value="2">B/W random threshold</_item>
+				<_item value="3">Halftone</_item>
+				<_item value="4">Halftone row</_item>
+				<_item value="5">Halftone column</_item>
+			</param>
+	
+	<!-- Opzioni modalita -->
+			<param name="BW_threshold" type="int" min="1" max="254" gui-text="黑/白間的臨界值 B/W threshold">128</param>
+	
+			<param name="grayscale_resolution" type="enum" gui-text="灰階解析度 Grayscale resolution ">
+				<_item value="1">256</_item>
+				<_item value="2">128</_item>	<!-- 256/2 -->
+				<_item value="4">64</_item>	<!-- 256/4 -->
+				<_item value="8">32</_item>	<!-- 256/8 -->
+				<_item value="16">16</_item>	<!-- 256/16 -->
+				<_item value="32">8</_item>	<!-- 256/32 -->
+			</param>
+			<param name="low_laser_dot" type="boolean" gui-text="顯示定位點 Show the anchor point">true</param>
+
+			<param name="low_laser_square" type="enum" gui-text="顯示工作區範圍 Show the working area">
+				<_item value="0">不使用</_item>
+				<_item value="1">1次</_item>
+				<_item value="2">2次</_item>
+				<_item value="3">3次</_item>
+				<_item value="4">4次</_item>
+				<_item value="5">5次</_item>
+			</param>
+			<param name="laser_contrast" type="int" min="0" max="10" gui-text="對比值 Contrast (0 - 10)">3</param>
+			<param name="laseron" type="string"  gui-text="雷射-啟動指令 Laser ON Command">M3</param>
+			<param name="laseroff" type="string"  gui-text="雷射-關閉指令 Laser OFF Command">M5</param>
+			<param name="laser_mini_power" type="int" min="0" max="1000" gui-text="雷射最小功率(S: 0 - 1000)">470</param>
+			<param name="laser_maxi_power" type="int" min="0" max="1000" gui-text="雷射最大功率(S: 0 - 1000)">480</param>
+			<param name="speed_ON" type="int" min="1" max="700" gui-text="雕刻速度 Engraving speed (mm/min.) G-code : G1 Fnnn">500</param>
+			<param name="preview_only" type="boolean" gui-text="僅輸出預覽圖，不產生路徑檔">false</param>
+		</page>
+	</param>
+
+	<!-- Per togliere la casella Antepima diretta bisogna sostituire <effect> con <effect needs-live-preview="false">  -->
+	<!-- <effect> -->
+	<!-- 	<effect needs-live-preview="false"> -->
+	<effect needs-live-preview="false"> 
+        	<object-type>all</object-type>
+		<!-- Dove comparirà lo script all'interno del menù estensioni -->
+		<!--  " Estensioni => 雷射g-code => prova_estensione " -->
+        	<effects-menu>
+			<submenu name="雷射機雕刻"/>
+        	</effects-menu>
+	</effect>
+    
+	<!-- Script python da eseguire -->
+	<script>
+    		<command reldir="extensions" interpreter="python">png2laser_gcode.py</command>
+	</script>
+</inkscape-extension>
+
+
