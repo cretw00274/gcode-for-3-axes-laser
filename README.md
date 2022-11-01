@@ -42,5 +42,5 @@ for unix (& mac maybe) change the permission on the file:
 
 
 #Note
-The code is based on "raster2laser_gcode_cr8" by 305engineering <305engineering@gmail.com>.
+The code was developed based on "raster2laser_gcode_cr8" by 305engineering <305engineering@gmail.com>.
 I have revision all the file except for png.py for my use case, i.e. add a mark on a relief object.
